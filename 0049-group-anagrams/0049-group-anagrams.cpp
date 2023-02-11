@@ -10,8 +10,8 @@ public:
             mp[gh].push_back(i);
         }
         map<string,vector<int>> :: iterator it;
-        for(auto it : mp) {
-            vector<int> op1 = it.second;
+        for(it=mp.begin();it!=mp.end();it++) {
+            vector<int> op1 = it->second;
             vector<string> kl;
             for(int i=0;i<op1.size();i++) {
                 kl.push_back(strs[op1[i]]);
