@@ -11,29 +11,24 @@
  */
 class Solution {
 public:
-    // List to store the tree nodes in the inorder traversal.
-    vector<int> inorderNodes;
-    
-    void inorderTraversal(TreeNode* root) {
-        if (root == NULL) {
+    vector<int> jk;
+    void inorder1(TreeNode* root){
+        if(root==NULL){
             return;
         }
+        inorder1(root->left);
+        jk.push_back(root->val);
+        inorder1(root->right);
         
-        inorderTraversal(root->left);
-        // Store the nodes in the list.
-        inorderNodes.push_back(root->val);
-        inorderTraversal(root->right);
     }
-    
     int minDiffInBST(TreeNode* root) {
-        inorderTraversal(root);
-        
-        int minDistance = INT_MAX;
-        // Find the diff between every two consecutive values in the list.
-        for (int i = 1; i < inorderNodes.size(); i++) {
-            minDistance = min(minDistance, inorderNodes[i] - inorderNodes[i - 1]);
+        if(!jk.empty()) jk.clear();
+        inorder1(root);
+        int min1 = INT_MAX;
+        for(int i=0;i<(jk.size()-1);i++){
+        min1=  min(min1,(jk[i+1]-jk[i]));  
         }
         
-        return minDistance;
+        return min1;
     }
 };
