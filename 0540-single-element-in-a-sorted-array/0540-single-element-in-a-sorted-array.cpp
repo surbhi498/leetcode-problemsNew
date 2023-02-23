@@ -5,7 +5,7 @@ public:
         int start =0;
         int end = n-1;
         int mid;
-        if(start==end) return nums[start];
+//if(start==end) return nums[start];
         while(start<=end){
              mid=start+(end-start)/2;
             if(mid ==0 || mid==(n-1)) return nums[mid];
