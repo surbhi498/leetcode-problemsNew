@@ -3,7 +3,7 @@ public:
     int findNumberOfLIS(vector<int>& nums) {
         int n= nums.size();
         vector<pair<int,int>> dp(n,{1,1});
-      //   dp[0].second=1;
+     //   dp[0].second=1;
      //   cout<<dp[1].first<<dp[1].second<<endl;
         int ans=0;
         int max1=INT_MIN;
@@ -15,9 +15,10 @@ public:
                         dp[i].second +=dp[j].second;
                     }
                   else if(dp[i].first<(dp[j].first+1)){
-                       // dp[i].second = dp[j].second;
-                      dp[i]={1+dp[j].first,dp[j].second};
+                        dp[i].second = dp[j].second;
+                     // dp[i]={1+dp[j].first,dp[j].second};
                     }
+                    dp[i].first = max(1+dp[j].first, dp[i].first);
                 }
             }
           
