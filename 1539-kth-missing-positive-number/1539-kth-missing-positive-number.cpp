@@ -9,7 +9,7 @@ public:
         for(auto gh : arr){
             mp[gh]++;
         }
-        for(int i=1;i<=100000000000;i++){
+        for(int i=1;i<=1000000000000;i++){
             if(mp.find(i)==mp.end()){
             k--;        
             }
