@@ -9,7 +9,7 @@ public:
         for(auto gh : arr){
             mp[gh]++;
         }
-        for(int i=1;i<=100000000000000000;i++){
+        for(int i=1;i<=max1;i++){
             if(mp.find(i)==mp.end()){
             k--;        
             }
@@ -17,6 +17,12 @@ public:
             ans=i;
             break;    
             }
+        }
+        if(ans==0){
+            for(int i=1;i<=k;i++){
+                max1++;
+            }
+            ans=max1;
         }
         return ans;
         
