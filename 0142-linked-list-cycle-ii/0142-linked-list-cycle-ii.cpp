@@ -9,28 +9,20 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if(!head||!head->next)return nullptr;
-        ListNode*hare=head,*tor=head;
-		//we will find the intersecting point of hare and tor
-        do{
-            hare=hare->next->next;
-            tor=tor->next;
-        }while(tor!=hare&&hare&&hare->next);
-		
-		//check if the cycle is there or not
-        if(!hare||!hare->next){
-            return nullptr;
+        ListNode* fast =head;
+        ListNode* slow = head;
+        ListNode* ans = head;
+        while(fast && slow && fast->next){
+            fast=fast->next->next;
+            slow=slow->next;
+            if(fast==slow){
+                while(ans != fast){
+            ans=ans->next;
+            fast=fast->next;
         }
-        else{
-		//if present then we will take tor to the head
-            tor=head;
-			//while they dont meet again we will increment distance by one 
-            while(hare!=tor){
-                hare=hare->next;
-                tor=tor->next;
+        return ans;
             }
         }
-		//returning the tor
-        return tor;
+       return NULL;
     }
 };
