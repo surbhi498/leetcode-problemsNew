@@ -10,23 +10,21 @@
  */
 class Solution {
 public:
-    vector<int>list;
+    vector<int> list;
     Solution(ListNode* head) {
-        ListNode * tmp = head;
-        while(tmp)
-        {
-            list.push_back(tmp->val);
-            tmp = tmp->next;
+        ListNode* bn = head;
+        while(bn != NULL){
+            list.push_back(bn->val);
+            bn = bn->next;
         }
     }
     
     int getRandom() {
         int n = list.size();
-        int ind = rand()%n;
-        return list[ind];
+        int vb = rand()%n;
+        return list[vb];
     }
 };
-
 
 /**
  * Your Solution object will be instantiated and called as such:
