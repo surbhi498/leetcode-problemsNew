@@ -9,24 +9,23 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
- #define ll long long
 class Solution {
 public:
-
-    void dfs(TreeNode *root, ll &ans , ll tmp){
-        if(root->left== NULL && root->right==NULL){
-            tmp = tmp*10 + root->val;
-            ans+=tmp;
-            return;
-        }
-        tmp = tmp*10 + root->val;
-        if(root->left) dfs(root->left,ans,tmp);
-        if(root->right) dfs(root->right,ans,tmp);
-    }
-
+    long long ans=0;
+    long long temp=0;
     int sumNumbers(TreeNode* root) {
-        ll ans =0;
-        dfs(root,ans,0);
-        return int(ans);
+        if(root==NULL) return 0;
+        temp=temp*10+root->val;
+        if(root->left==NULL && root->right==NULL){
+            ans+=temp;
+        }
+        if(root->left){
+        sumNumbers(root->left);
+        }
+        if(root->right){
+        sumNumbers(root->right);    
+        }
+        temp=temp/10;
+        return ans;
     }
 };
