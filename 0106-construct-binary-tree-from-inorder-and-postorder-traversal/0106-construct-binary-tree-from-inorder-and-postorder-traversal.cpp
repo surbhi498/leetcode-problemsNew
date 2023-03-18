@@ -11,24 +11,30 @@
  */
 class Solution {
 public:
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        unordered_map<int, int> index;
-        for (int i = 0; i < inorder.size(); i++) {
-            index[inorder[i]] = i;
+  
+    TreeNode* buildTree1(vector<int>& inorder, int g, int bn, vector<int>& postorder, int m, int p){
+        if(g>bn) return NULL;
+        TreeNode* root = new TreeNode(postorder[p]);
+        int gh=0;
+        int kl = root->val;
+        for(int i=g;i<=bn;i++){
+            if(kl==inorder[i]){
+                gh=i;
+                break;
+            }
         }
-        return buildTreeHelper(inorder, postorder, 0, inorder.size() - 1, 0, postorder.size() - 1, index);
-    }
-    
-    TreeNode* buildTreeHelper(vector<int>& inorder, vector<int>& postorder, int inorderStart, int inorderEnd, int postorderStart, int postorderEnd, unordered_map<int, int>& index) {
-        if (inorderStart > inorderEnd || postorderStart > postorderEnd) {
-            return nullptr;
-        }
-        int rootVal = postorder[postorderEnd];
-        TreeNode* root = new TreeNode(rootVal);
-        int inorderRootIndex = index[rootVal];
-        int leftSubtreeSize = inorderRootIndex - inorderStart;
-        root->left = buildTreeHelper(inorder, postorder, inorderStart, inorderRootIndex - 1, postorderStart, postorderStart + leftSubtreeSize - 1, index);
-        root->right = buildTreeHelper(inorder, postorder, inorderRootIndex + 1, inorderEnd, postorderStart + leftSubtreeSize, postorderEnd - 1, index);
+        int noofelements=gh-1-g;
+        int x = noofelements+m;
+        root->left = buildTree1(inorder,g,gh-1, postorder,m,x);
+        root->right= buildTree1(inorder,gh+1,bn,postorder,x+1,p-1);
         return root;
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        int i=0;
+        int j=inorder.size()-1; 
+        int y=postorder.size()-1;
+        
+        int start=0;
+        return buildTree1(inorder, i, j, postorder,start,y);
     }
 };
