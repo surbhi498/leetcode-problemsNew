@@ -18,7 +18,7 @@ public:
                 left++;
                
             }
-            ans+=left;
+            ans+=count;
             right++;
         }
         return ans;
