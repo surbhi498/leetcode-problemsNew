@@ -7,6 +7,7 @@ public:
         int gh=0;
         int count=0;
         for(int i=0;i<n;i++){
+            if(gh==i) continue;
             if(knows(gh,i)){
                 gh=i;
             }
@@ -17,6 +18,7 @@ public:
                 count++;
             }
         }
+        cout<<n<<endl;
         if(count==(n-1)) return gh;
         return -1;
     }
