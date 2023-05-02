@@ -17,6 +17,21 @@ public:
           }  
         }
     }
+    void bfs(vector<vector<int>>& adj, int start, vector<int>& visited){
+        queue<int> q;
+        q.push(start);
+        visited[start]=1;
+        while(!q.empty()){
+            int gh=q.front();
+            q.pop();
+            for(auto bn : adj[gh]){
+                if(visited[bn]==0){
+                    visited[bn]=1;
+                    q.push(bn);
+                }
+            }
+        }
+    }
     int numSimilarGroups(vector<string>& strs) {
         int n = strs.size();
         vector<vector<int>> jk(n);
@@ -34,7 +49,7 @@ public:
         for(int i=0;i<n;i++){
             if(visited[i]==0){
                 connectedcompo++;
-                dfs(jk,i,visited);
+                bfs(jk,i,visited);
                 
             }
         }
