@@ -1,30 +1,45 @@
 class Solution {
 public:
-    // Returns the elements in the first arg nums1 that don't exist in the second arg nums2.
-    vector<int> getElementsOnlyInFirstList(vector<int>& nums1, vector<int>& nums2) {
-        unordered_set<int> onlyInNums1;
-        
-        // Iterate over each element in the list nums1.
-        for (int num : nums1) {
-            bool existInNums2 = false;
-            // Check if num is present in the second arg nums2.
-            for (int x : nums2) {
-                if (x == num) {
-                    existInNums2 = true;
-                    break;
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+     map<int,int> mp1;
+     map<int,int> mp2;
+     vector<vector<int>> kl; 
+     vector<int> yu1;
+     vector<int> yu2;   
+     for(auto gh : nums1){
+         mp1[gh]++;
+     }   
+     for(auto jk : nums2){
+         mp2[jk]++;
+     }   
+        for(auto it1 : mp1){
+            int gh=0;
+            for(auto it2 : mp2){
+                if(it1.first == it2.first){
+                   gh=1;
+                   break;
                 }
             }
-            
-            if (!existInNums2) {
-                onlyInNums1.insert(num);
-            }
+             if(gh==0)
+            yu1.push_back(it1.first); 
         }
         
-        // Convert to vector.
-        return vector<int> (onlyInNums1.begin(), onlyInNums1.end());
-    }
-    
-    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
-        return {getElementsOnlyInFirstList(nums1, nums2), getElementsOnlyInFirstList(nums2, nums1)};
+        for(auto it2 : mp2){
+            int gh=0;
+            for(auto it1 : mp1){
+                if(it1.first == it2.first){
+                  gh=1;
+                  break;   
+                   
+                }
+            }
+            if(gh==0)
+            yu2.push_back(it2.first);    
+           
+        }
+        kl.push_back(yu1);
+        kl.push_back(yu2);
+        
+        return kl;
     }
 };
