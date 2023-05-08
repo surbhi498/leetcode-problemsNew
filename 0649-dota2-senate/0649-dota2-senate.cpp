@@ -1,62 +1,47 @@
 class Solution {
 public:
-  string predictPartyVictory(string senate) {
-
-    // Count of Each Type of Senator to check for Winner
-    int rCount = count(senate.begin(), senate.end(), 'R');
-    int dCount = senate.size() - rCount;
-
-    // Ban the candidate "toBan", immediate next to "startAt"
-    // If have to loop around, then it means next turn will be of
-    // senator at same index. Returns loop around boolean
-    auto ban = [&](char toBan, int startAt) {
-      bool loopAround = false;
-      int pointer = startAt;
-
-      while (true) {
-        if (pointer == 0) {
-          loopAround = true;
+    void ban(vector<int> &indices, int start_at, vector<int>& banned)
+    {
+        
+        auto temp = lower_bound(indices.begin(), indices.end(), start_at);
+        if(temp==indices.end()){
+            banned[indices[0]]=1;
+            indices.erase(indices.begin());
         }
-        if (senate[pointer] == toBan) {
-          senate.erase(senate.begin() + pointer);
-          break;
+        else{
+            banned[*temp]=1;
+            indices.erase(temp);
         }
-        pointer = (pointer + 1) % senate.size();
-      }
-
-      return loopAround;
-    };
-
-    // Turn of Senator at this index
-    int turn = 0;
-
-    // While No Winner
-    while (rCount > 0 && dCount > 0) {
-
-      // Ban the next opponent, starting at one index ahead
-      // Taking MOD to loop around.
-      // If index of banned senator is before current index,
-      // then we need to decrement turn by 1, as we have removed
-      // a senator from list
-      if (senate[turn] == 'R') {
-        bool bannedSenatorBefore = ban('D', (turn + 1) % senate.size());
-        dCount--;
-        if (bannedSenatorBefore) {
-          turn--;
+        
+        
+    }    
+    string predictPartyVictory(string senate) {
+        int n = senate.size();
+        vector<int> rindices;
+        vector<int> dindices;
+        vector<int> banned(n,0);
+        int turn=0;
+        for(int i=0;i<n;i++){
+            if(senate[i]=='R'){
+                rindices.push_back(i);
+            }
+            else{
+                dindices.push_back(i);
+            }
         }
-      } else {
-        bool bannedSenatorBefore = ban('R', (turn + 1) % senate.size());
-        rCount--;
-        if (bannedSenatorBefore) {
-          turn--;
+        while(!rindices.empty() && !dindices.empty()){
+         if(!banned[turn]){
+             if(senate[turn]=='R'){
+                 ban(dindices,turn, banned);
+             }
+             else{
+                 ban(rindices,turn, banned);
+             }
+         }   
+            turn = (turn+1)%n;
         }
-      }
-
-      // Increment turn by 1
-      turn = (turn + 1) % senate.size();
+        if(dindices.empty()) return "Radiant";
+        else
+        return "Dire";    
     }
-
-    // Return Winner depending on count
-    return dCount == 0 ? "Radiant" : "Dire";
-  }
 };
