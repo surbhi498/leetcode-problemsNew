@@ -14,7 +14,7 @@ public:
      }   
      while(left<=right){
        if((nums[left]+nums[right])<=target){
-       count = (count + (power[right-left]%mod))%mod;    
+       count = (count + power[right-left] %mod)%mod;    
        left++;    
        }  
        else{
