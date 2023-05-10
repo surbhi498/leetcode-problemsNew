@@ -1,46 +1,31 @@
 class Solution {
 public:
     vector<int> distinctDifferenceArray(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> gh(n,0);
-        gh[0]=1;
-        vector<int> bn;
-        vector<int> suffix(n,0);
-        suffix[n-1]=1;
-        for(int i=1;i<n;i++){
-            int count=0;
-            for(int j=i-1;j>=0;j--){
-               if(nums[j] == nums[i]) 
-               {count=1;
-                break;
-               } 
-            }
-            if(count==1)
-            gh[i]=gh[i-1];
-            else
-            gh[i]=gh[i-1]+1;    
-        }
-        for(int i=n-2;i>=0;i--){
-            int count=0;
-            for(int j=i+1;j<n;j++){
-               if(nums[j] == nums[i]) 
-               {count=1;
-                break;
-               } 
-            }
-            if(count==1)
-            suffix[i]=suffix[i+1];
-            else
-            suffix[i]=suffix[i+1]+1;    
-        }
-        for(int i=0;i<n;i++){
-            int vb;
-            if(i<(n-1))
-            vb = gh[i]-(suffix[i+1]);
-            else if(i==(n-1))
-            vb = gh[i];    
-            bn.push_back(vb);
-        }
-        return bn;
+      int n = nums.size();
+    vector<int> result(n, 0);
+    unordered_map<int,int> mp;
+    vector<int> suffix(n,0);
+    // Traverse from left to right
+    for (int i = 0; i < n; i++) {
+        mp[nums[i]]++;
+        result[i] = mp.size();
+    }
+
+    mp.clear();
+    for(int i=n-1;i>=0;i--){
+        mp[nums[i]]++;
+        suffix[i]=mp.size();   
+    }
+    // Traverse from right to left
+    for (int i = n - 1; i >= 0; i--) {
+        
+        if(i < (n-1))
+        result[i] = result[i]-(suffix[i+1]);
+        else
+        result[i]=result[i];    
+            
+    }
+
+    return result;
     }
 };
