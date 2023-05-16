@@ -3,7 +3,9 @@ public:
     bool solve1(int i, vector<int>& stones, int n, int gh, vector<vector<int>>& jk)
     {
       if(jk[i][gh] != -1) return jk[i][gh];
-      if(i==(n-1)) return true;
+      if(i==(n-1)) jk[i][gh]=1;
+      else
+      jk[i][gh]=0;    
        for(int t=i+1;t<n;t++)
        {
                    
@@ -33,7 +35,7 @@ public:
      }
                
               
-    return jk[i][gh]=(i==(n-1))?1:0;
+    return jk[i][gh];
         
         
     }    
