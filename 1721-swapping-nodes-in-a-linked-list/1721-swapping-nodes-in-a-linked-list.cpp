@@ -27,14 +27,14 @@ public:
         ListNode* yu = head;
         ListNode* jk = head;
         int i=1;
-        while(i<k){
+        while(--k){
             yu=yu->next;
-            i++;
+            //i++;
         }
         int j=1;
-        while(j<bac){
+        while(--bac){
            jk=jk->next;
-           j++;   
+          // j++;   
         }
         int bn = yu->val;
         yu->val=jk->val;
