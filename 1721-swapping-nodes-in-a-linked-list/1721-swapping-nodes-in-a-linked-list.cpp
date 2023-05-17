@@ -10,26 +10,35 @@
  */
 class Solution {
 public:
+    int length(ListNode* head){
+        ListNode* temp = head;
+        int count=0;
+        while(temp != NULL){
+            temp = temp->next;
+            count++;
+        }
+        return count;
+    }
     ListNode* swapNodes(ListNode* head, int k) {
-        int listLength = 0;
-        ListNode* currentNode = head;
-        // find the length of linked list
-        while (currentNode) {
-            listLength++;
-            currentNode = currentNode->next;
+        int cv = length(head);
+        cout<<cv<<endl;
+        int bac = cv-k+1;
+        cout<<bac<<endl;
+        ListNode* yu = head;
+        ListNode* jk = head;
+        int i=1;
+        while(i<k){
+            yu=yu->next;
+            i++;
         }
-        // set the front node at kth node
-        ListNode* frontNode = head;
-        for (int i = 1; i < k; i++) {
-            frontNode = frontNode->next;
+        int j=1;
+        while(j<bac){
+           jk=jk->next;
+           j++;   
         }
-        // set the end node at (listLength - k)th node
-        ListNode* endNode = head;
-        for (int i = 1; i <= listLength - k; i++) {
-            endNode = endNode->next;
-        }
-        // swap the values of front node and end node
-        swap(frontNode->val, endNode->val);
+        int bn = yu->val;
+        yu->val=jk->val;
+        jk->val=bn;
         return head;
     }
 };
