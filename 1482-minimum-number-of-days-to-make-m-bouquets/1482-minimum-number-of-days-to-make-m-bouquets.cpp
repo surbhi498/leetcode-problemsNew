@@ -16,16 +16,39 @@ public:
                 consecutive = 0;
             }
             
-            if (cv == m) {
-                return cv;
-            }
+            // if (cv == m) {
+            //     return cv;
+            // }
         }
         
         return cv;
    
+//        for(int i=0;i<n;i++)
+//         {
+//         if(bloomDay[i]<=mid)    
+//         {
+//             if(visited[i]==0)
+//             visited[i]=1;
+//         }    
+            
+//         }    
+//         for(int i=0;i<n;i++)
+//         {
+//             int j=i;
+//             count=0;
+//             while(visited[j]==1 && count<k){
+//                count++; 
+//                j++; 
+//              }
+//             if(count==k){
+//                 cv++;
+//             }
+            
+//             i=j-1;
+            
+//         }     
         
-        
-        
+       //return cv; 
     }    
     int minDays(vector<int>& bloomDay, int m, int k) {
         int n = bloomDay.size();
@@ -39,11 +62,6 @@ public:
             int mid = low+(high-low)/2;
             visited.clear();
             int op = check(bloomDay, mid, m, k, n, visited);
-//             if(op==m)
-//             {
-//              return mid;   
-                
-//             }    
             if(op>=m)
             {
                 high=mid-1;
@@ -54,6 +72,7 @@ public:
             }
             
         }     
-        return low<=max1 ? low : -1;
+         return low<=max1 ? low : -1;
+        //return -1;
     }
 };
