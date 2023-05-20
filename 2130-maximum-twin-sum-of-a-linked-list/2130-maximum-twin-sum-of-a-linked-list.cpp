@@ -10,55 +10,35 @@
  */
 class Solution {
 public:
-    long long count1(ListNode* head, vector<int>& jk){
-        ListNode* temp = head;
-        
-        long long count=0;
-        while(head != NULL){
-            count++;
-            jk.push_back(head->val);
-            head=head->next;
-        }
-        return count;
-    }
     int pairSum(ListNode* head) {
-        if(head==NULL) return 0;
-        vector<int> jk;
-        long long n = count1(head, jk);
-       
-        int max1= INT_MIN;
-        int i=0;
-        int j=jk.size()-1;
-        while(i<j){
-            int vb = jk[i]+jk[j];
-            max1=max(max1,vb);
-            i++;
-            j--;
+        ListNode* fast = head;
+        ListNode* slow = head;
+        ListNode* jk = head;
+        while(fast && fast->next)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+        }    
+        // we have got the middle of list now reverse list from here
+        ListNode* prev = NULL;
+        ListNode* nextnode=NULL;
+        while(slow){
+             nextnode = slow->next;
+            slow->next=prev;
+           // nextnode->next=slow;
+            prev=slow;
+            slow=nextnode;
+            //nextnode=nextnode->next;
+            
+            
         }
-        
-//         for(int i=0;i<(n/2);i++){
-//             int j=i;
-//             int bn = (n-j-1);
-            
-            
-//             ListNode* prev = head;
-//             ListNode* prev1 = head;
-//             while(j>0 && prev != NULL){
-//                 prev=prev->next;
-//                 j--;
-//             }
-//             while(bn>0 && prev1 != NULL){
-//                 prev1=prev1->next;
-//                 bn--;
-//             }
-//             if(prev != NULL && prev1 != NULL){
-            
-                    
-                
-//             max1 = max(max1, prev->val+prev1->val);
-//             }    
-            
-//         }
+        int max1= INT_MIN;
+        while(prev){
+            int fg = prev->val+jk->val;
+            max1=max(max1,fg);
+            prev=prev->next;
+            jk= jk->next;
+        }
         return max1;
     }
 };
