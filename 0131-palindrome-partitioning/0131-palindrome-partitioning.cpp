@@ -1,38 +1,36 @@
 class Solution {
 public:
-bool palindrome(string& s) {
-    int n = s.size();
-    int low=0;
-    int high = n-1;
-    while(low<high) {
-        if(s[low]!=s[high]) {
-        return false;
+    bool ispalindrome(string& s)
+    {
+        int start=0;
+        int end=s.size()-1;
+        while(start<=end){
+            if(s[start] != s[end]){
+                return false;
+            }
+            start++;
+            end--;
         }
-      low++;
-      high--;
-    }
-    return true;
-}
-    void fun(string s,int n , int start, vector<vector<string>>& jk, vector<string>& nm) {
-        if(start>=n) {
-            jk.push_back(nm);
-            return;
-        }
-        for(int end=start;end<n;end++) {
-            string vb = s.substr(start,end-start+1);
-            if(palindrome(vb)) {
-                nm.push_back(vb);
-                fun(s,n,end+1,jk,nm);
-                nm.pop_back();
-            } 
+        return true;
+    }   
+    void dfs(int start,string& s,vector<vector<string>>& result, vector<string>& currentlist){
+        if(start>=s.size()) result.push_back(currentlist);
+        for(int end=start;end<s.size();end++){
+            string gh = s.substr(start,end-start+1);
+            if(ispalindrome(gh)){
+                currentlist.push_back(gh);
+                dfs(end+1,s,result,currentlist);
+                currentlist.pop_back();
+            }
             
         }
+       // return result;
     }
     vector<vector<string>> partition(string s) {
-     int n = s.size();
-     vector<vector<string>> jk;
-     vector<string> nm;
-     fun(s,n,0,jk,nm); 
-     return jk;  
+        int n = s.size();
+        vector<vector<string>>result;
+        vector<string> currentlist;
+        dfs(0,s,result,currentlist);
+        return result;
     }
 };
