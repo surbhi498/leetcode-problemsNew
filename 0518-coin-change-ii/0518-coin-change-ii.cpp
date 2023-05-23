@@ -1,14 +1,26 @@
+//const int mod = 1e9 + 7;
 class Solution {
 public:
+    long long  count1(int start,vector<int>& arr, int sum, vector<vector<long long>>& dp)
+{
+    if(start==0){
+    return (sum%arr[0]==0); 
+    }
+    if(dp[start][sum] != -1) return dp[start][sum];     
+    int take=0;
+    int nottake;
+    nottake =  count1(start-1,arr,sum, dp);
+    if(arr[start]<=sum){
+
+      take =  count1(start,arr, sum-arr[start], dp);
+    }
+   
+    return dp[start][sum]= (take+nottake);
+    
+}
     int change(int amount, vector<int>& coins) {
-        vector<int> dp(amount+1,0);
-        dp[0]=1;
-        for(auto c : coins){
-        for(int i=1;i<=amount;i++){
-            if(i>=c)
-            dp[i]=dp[i]+dp[i-c];
-        }
-        }  
-        return dp[amount];
+       int n = coins.size();
+        vector<vector<long long>> dp(n+1,vector<long long>(amount+1,-1));
+        return count1(n-1,coins,amount, dp);
     }
 };
