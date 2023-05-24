@@ -8,8 +8,8 @@ public:
         //     dp[i][0]=0;
         // }
         dp[0]=0;
-        for(int x=1;x<=amount;x++){
-            for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++){
+            for(int x=1;x<=amount;x++){
 //                 if(coins[i]>x && i>0){
 //                     dp[i]=dp[i-1];
                     
