@@ -20,7 +20,23 @@ public:
 }
     int change(int amount, vector<int>& coins) {
        int n = coins.size();
-        vector<vector<long long>> dp(n+1,vector<long long>(amount+1,-1));
-        return count1(0,coins,amount, dp);
+        vector<vector<long long>> dp(n,vector<long long>(amount+1,0));
+        for(int t=0;t<=amount;t++){
+            dp[0][t]=(t%coins[0]==0);
+        }
+        for(int start=1;start<n;start++){
+            for(int val=0;val<=amount;val++){
+                int take=0;
+                int nottake;
+                nottake =  dp[start-1][val];
+                if(coins[start]<=val){
+                take =  dp[start][val-coins[start]];
+                 }
+   
+            dp[start][val]= (take+nottake);
+    
+            }
+        }
+        return dp[n-1][amount];
     }
 };
