@@ -9,7 +9,7 @@ public:
             curr_sum+=nums[i];
             max1 =max(max1,curr_sum);   
             if(curr_sum<0){
-               prevsum+=curr_sum;
+            //   prevsum+=curr_sum;
                curr_sum=0; 
             }
          
