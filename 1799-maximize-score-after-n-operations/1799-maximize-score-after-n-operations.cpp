@@ -1,49 +1,34 @@
 class Solution {
 public:
-    int backtrack(vector<int>& nums, int mask, int pairsPicked, vector<int>& memo) {
-        // If we have picked all the numbers from 'nums' array, we can't get more score.
-        if (2 * pairsPicked == nums.size()) {
+    
+    int check(vector<int>& nums, int mask, vector<int>& memo,int pickedpair, int m){
+        if(2*pickedpair==(m)){
             return 0;
         }
-
-        // If we already solved this sub-problem then return the stored result.
-        if (memo[mask] != -1) {
-            return memo[mask];
-        }
-
-        int maxScore = 0;
-
-        // Iterate on 'nums' array to pick the first and second number of the pair.
-        for (int firstIndex = 0; firstIndex < nums.size(); ++firstIndex) {
-            for (int secondIndex = firstIndex + 1; secondIndex < nums.size(); ++secondIndex) {
-    
-                // If the numbers are same, or already picked, then we move to next number.
-                if (((mask >> firstIndex) & 1) == 1 or ((mask >> secondIndex) & 1) == 1) {
+        
+        if(memo[mask] != -1) return memo[mask];
+        int max1=0;
+        for(int i=0;i<(nums.size());i++){
+            for(int j=i+1;j<(nums.size());j++){
+                if(((mask>>i)&1)==1 or ((mask>>j)&1)==1){
                     continue;
                 }
-
-                // Both numbers are marked as picked in this new mask.
-                int newMask = mask | (1 << firstIndex) | ((1 << secondIndex));
-
-                // Calculate score of current pair of numbers, and the remaining array.
-                int currScore = (pairsPicked + 1) * __gcd(nums[firstIndex], nums[secondIndex]);
-                int remainingScore = backtrack(nums, newMask, pairsPicked + 1, memo);
-
-                // Store the maximum score.
-                maxScore = max(maxScore, currScore + remainingScore);
-                // We will use old mask in loop's next interation, 
-                // means we discarded the picked number and backtracked.
+               int  maxscore = (pickedpair+1)* __gcd(nums[i],nums[j]);
+                int newmask = mask | (1<<i) | (1<<j);
+                int remainingscore =   check(nums, newmask, memo, pickedpair+1,m);
+                max1 = max(max1, maxscore+remainingscore);
+                
+              
             }
         }
-
-        // Store the result of the current sub-problem.
-        memo[mask] = maxScore;
-        return maxScore;
+        memo[mask]=max1;
+        return max1;
     }
-
     int maxScore(vector<int>& nums) {
-        int memoSize = 1 << nums.size(); // 2^(nums array size)
-        vector<int> memo(memoSize, -1);
-        return backtrack(nums, 0, 0, memo);
+        int n = nums.size();
+        int m = 1<<n;
+        vector<int> memo(m,-1);
+        int pickedpair=0;
+        return check(nums, 0, memo,pickedpair,m);
     }
 };
