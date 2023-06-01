@@ -14,9 +14,8 @@ public:
             //overlap occurs
            // overlap[0][0]=points[i][0];
             if((points[i][0]<=overlap[0][1])){
-                
                 overlap[0][0] = max(overlap[0][0], points[i][0]); // Update the starting x-coordinate if necessary
-                overlap[0][1] = min(overlap[0][1], points[i][1]);
+                overlap[0][1] = min(overlap[0][1], points[i][1]); // U
                }
             //overlap does not occur
             else{
