@@ -1,23 +1,30 @@
+#include<bits/stdc++.h>
 class Solution {
 public:
-    // Returns the delta Y.
-    int getYDiff(vector<int>& a, vector<int>& b) {
-        return a[1] - b[1];
-    }
-    
-    // Returns the delta X.
-    int getXDiff(vector<int>& a, vector<int>& b) {
-        return a[0] - b[0];
-    }
-    
     bool checkStraightLine(vector<vector<int>>& coordinates) {
-        int deltaY = getYDiff(coordinates[1], coordinates[0]);
-        int deltaX = getXDiff(coordinates[1], coordinates[0]);
-        
-        for (int i = 2; i < coordinates.size(); i++) {
-            // Check if the slope between points 0 and i, is the same as between 0 and 1.
-            if (deltaY * getXDiff(coordinates[i], coordinates[0])
-                != deltaX * getYDiff(coordinates[i], coordinates[0])) {
+        int n= coordinates.size();
+      //  sort(coordinates.begin(),coordinates.end());
+        int num = coordinates[1][1]-coordinates[0][1];
+        int deno = coordinates[1][0]-coordinates[0][0];
+        double m;
+        int xcoor = coordinates[0][0];
+        if(deno==0){
+            for(int i=1;i<n;i++){
+                if(xcoor != coordinates[i][0])
+                return false;
+                
+            }
+            return true;
+        }
+        if(deno != 0)
+         m=(double)num/deno;
+        cout<<m<<endl;
+        int intercept = coordinates[0][1] - m*coordinates[0][0];
+        for(int i=0;i<n;i++){
+            int y = m*coordinates[i][0]+intercept;
+            int cv = coordinates[i][1];
+            cout<<y<<endl;
+            if(y != cv){
                 return false;
             }
         }
