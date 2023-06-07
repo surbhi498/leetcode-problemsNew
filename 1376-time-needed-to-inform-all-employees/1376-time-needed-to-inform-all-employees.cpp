@@ -3,12 +3,12 @@ public:
     int maxTime = INT_MIN;
     void dfs(int i,vector<int>& visited, vector<vector<int>>& mg,vector<int>& informTime, int sum){
        // visited[i]=1;
-       
+        sum+=informTime[i];
         maxTime = max(maxTime,sum);
         for(auto gh : mg[i]){
            // if(!visited[gh]){
               
-                dfs(gh,visited,mg,informTime,sum+informTime[i]);
+                dfs(gh,visited,mg,informTime,sum);
            // }
         }
         
