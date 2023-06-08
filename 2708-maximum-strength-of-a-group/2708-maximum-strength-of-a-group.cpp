@@ -1,10 +1,10 @@
 class Solution {
 public:
-   
+    long long max1 = LLONG_MIN; 
     long long rec(int i, vector<int>& nums, long long sum, bool gh) {
         if (i == nums.size()) {
             if(!gh){
-                long long max1 = LLONG_MIN; 
+               
                 for(auto bn : nums){
                     if(bn<0 && bn>max1){
                         max1=bn;
