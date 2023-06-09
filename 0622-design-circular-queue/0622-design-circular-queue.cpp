@@ -23,7 +23,9 @@ public:
         }    
     
     bool deQueue() {
-        if(front==-1) return false;
+         if (front==-1)
+            return false;
+
         if (front == rear) {
             front = -1;
             rear = -1;
@@ -32,6 +34,7 @@ public:
         }
 
         return true;
+
     }
     
     int Front() {
