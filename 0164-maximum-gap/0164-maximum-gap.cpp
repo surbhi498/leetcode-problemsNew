@@ -3,13 +3,13 @@ public:
     int maximumGap(vector<int>& nums) {
         int n = nums.size();
         if(n<2) return 0;
+        int max1=INT_MIN;
         sort(nums.begin(),nums.end());
         vector<int> jk;
         for(int i=0;i<(n-1);i++){
             int diff = nums[i+1]-nums[i];
-            jk.push_back(diff);
+           max1=max(max1, diff);
         }
-        int vb= *max_element(jk.begin(),jk.end());
-        return vb;
+        return max1;
     }
 };
