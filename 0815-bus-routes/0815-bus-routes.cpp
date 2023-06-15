@@ -19,9 +19,9 @@ public:
                return bustaken;
            }
            for(auto jk : adj[currstop]){
-               for(int r:routes[jk]){
-                   if(s.find(r)==s.end()){
-                      q.push({r,bustaken+1});
+               for(int i=0;i<routes[jk].size();i++){
+                   if(s.find(routes[jk][i])==s.end()){
+                      q.push({routes[jk][i],bustaken+1});
                    }
                }
               routes[jk].clear();  
