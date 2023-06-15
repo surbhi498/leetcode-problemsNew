@@ -11,29 +11,30 @@
  */
 class Solution {
 public:
-    // List to store the node values.
-    vector<int> nodeValues;
-
-    void dfs(TreeNode* node) {
-        if (node == NULL) {
-            return;
+    void inorder(TreeNode* root, vector<int>& op){
+        if(root==NULL) return;
+        
+        if(root && root->left){
+           
+           inorder(root->left,op); 
         }
-
-        nodeValues.push_back(node->val);
-        dfs(node->left);
-        dfs(node->right);
+        if(root)
+         op.push_back(root->val);
+         if(root && root->right){
+           
+           inorder(root->right, op); 
+        }
+        
     }
-
     int getMinimumDifference(TreeNode* root) {
-        dfs(root);
-
-        sort(nodeValues.begin(), nodeValues.end());
-        int minDifference = INT_MAX;
-        // Find the diff between every two consecutive values in the list.
-        for (int i = 1; i < nodeValues.size(); i++) {
-            minDifference = min(minDifference, nodeValues[i] - nodeValues[i - 1]);
+        vector<int> kl;
+        inorder(root,kl);
+         int n = kl.size();
+        int min1=INT_MAX;
+        for(int i=0;i<(n-1);i++){
+        //  cout<<kl[i]<<endl;  
+          min1 = min(min1,abs(kl[i]-kl[i+1]));  
         }
-
-        return minDifference;
+       return min1;
     }
 };
