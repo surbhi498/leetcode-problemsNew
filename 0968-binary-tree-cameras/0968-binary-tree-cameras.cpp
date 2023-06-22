@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    const int needcamera = -1, covered = 0, havecamera = 1;
+    int needcamera = -1, covered = 0, havecamera = 1;
     int camera=0;
      int dfs(TreeNode* root){
         
