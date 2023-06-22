@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    int needcamera = -1, covered = 0, havecamera = 1;
+    const int needcamera = -1, covered = 0, havecamera = 1;
     int camera=0;
      int dfs(TreeNode* root){
         
@@ -22,18 +22,18 @@ public:
           
             return needcamera;
         }
-        
-        if(l1 == needcamera || r1 == needcamera) {
+          if(l1 == needcamera || r1 == needcamera) {
            
             camera++;
             return havecamera;
             
         }
-        
-        if(l1 == havecamera || r1 == havecamera) {
+       if(l1 == havecamera || r1 == havecamera) {
            
             return covered;
         }
+       
+        
        return -1;  
     }
     int minCameraCover(TreeNode* root) {
