@@ -30,7 +30,7 @@ public:
 
     int specialPerm(vector<int>& nums) {
         int n = nums.size();
-        dp.resize(n+1, vector<int>((1 << (n+1)) + 5, -1));
+        dp.resize(n+1, vector<int>((1 << (n+1)), -1));
         return solve(nums, -1, 0, 0);
     }
 };
