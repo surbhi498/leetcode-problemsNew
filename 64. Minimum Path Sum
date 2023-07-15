@@ -1,0 +1,55 @@
+Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+
+ 
+
+Example 1:
+
+
+Input: grid = [[1,3,1],[1,5,1],[4,2,1]]
+Output: 7
+Explanation: Because the path 1 → 3 → 1 → 1 → 1 minimizes the sum.
+Example 2:
+
+Input: grid = [[1,2,3],[4,5,6]]
+Output: 12
+ 
+
+Constraints:
+
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 200
+0 <= grid[i][j] <= 200
+// This solution giving TLE BRUTE FORCE RECURSION:
+class Solution {
+public:
+    int dx[2]={0,+1};
+    int dy[2]={+1,0};
+    
+    int mini1(vector<vector<int>>& grid, int i, int j){
+     int n = grid.size(); 
+     int m = grid[0].size();
+     //if(i>=n || j>=m) return LLONG_MAX;
+       if(i==(n-1) && j==(m-1)) return grid[i][j];
+        long long cost=0;
+        long long min1=LLONG_MAX;
+         for(int t=0;t<2;t++){
+         int gh = i+dx[t];
+         int yu = j+dy[t];
+         if(gh>=0 && gh<n && yu>=0 && yu<m){
+           cost = grid[i][j] + mini1(grid,gh,yu);
+           min1 = min(cost,min1);
+         }
+         }
+      // long long cost1 = grid[i][j] + mini1(grid, i + 1, j); // Move down
+      // long long cost2 = grid[i][j] + mini1(grid, i, j + 1); // Move right
+      // return min(cost1, cost2);
+     
+      return min1;
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+      return mini1(grid,0,0);  
+    }
+};
